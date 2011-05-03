@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcNotification", "MvcNotification\MvcNotification.csproj", "{1BD924BD-1663-4D4B-BA33-FBF38EF2E12D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BD924BD-1663-4D4B-BA33-FBF38EF2E12D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BD924BD-1663-4D4B-BA33-FBF38EF2E12D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BD924BD-1663-4D4B-BA33-FBF38EF2E12D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BD924BD-1663-4D4B-BA33-FBF38EF2E12D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

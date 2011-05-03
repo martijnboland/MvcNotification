@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "ASP.NET MVC 3 notification demo";
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#load-partial').click(function () {
+			$('#placeholder-partial').load('@Url.Action("Partial")');
+			return false;
+		});
+
+		$('#load-json').click(function () {
+			$.getJSON('@Url.Action("JsonData")', function (data) {
+				$('#placeholder-json').text('The code is ' + data.Code + ' and the description is "' + data.Description + '", generated at ' + data.TheDate);
+			});
+			return false;
+		});
+	});
+</script>
+
+<h2>Notification demo</h2>
+
+<dl>
+	<dt>Show success message after POST action</dt>
+	<dd>
+		@using(Html.BeginForm()) {
+			<label for="message">Message text:</label>
+			<input id="message" name="message" />
+			<input type="submit" value="Display message" />
+		}
+	</dd>
+	
+	<dt>Show warning after redirect</dt>
+	<dd>
+		@Html.ActionLink("Click this link to show the warning", "RedirectWithWarning")
+	</dd>
+
+	<dt>Show error message after loading a partial view</dt>
+	<dd>
+		<a href="#" id="load-partial">Load partial view</a>
+		<div id="placeholder-partial"></div>
+	</dd>
+
+	<dt>Show warning message after returning some JSON</dt>
+	<dd>
+		<a href="#" id="load-json">Load JSON</a>
+		<div id="placeholder-json"></div>
+	</dd>
+</dl>
