@@ -1,9 +1,4 @@
 * -text
 
-*.cs     text diff=csharp
-*.html   text diff=html
-*.css    text
-*.js     text
-
 *.csproj text merge=union
 *.sln    text merge=union eol=crlf
