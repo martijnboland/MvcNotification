@@ -1,0 +1,45 @@
+﻿/* Notification styles
+-----------------------------------------------------------*/
+#mvcNotify
+{
+    position: fixed;
+	top: 0px;
+	z-index: 1000;
+    right: 10px;
+    margin: 5px auto;
+	width: 500px;
+}
+
+@media (max-width: 499px) {
+    #mvcNotify
+    {
+        right: 0px;
+	    margin: 5px;
+	    width: 100%;
+    }
+}
+
+#mvcNotify .messagebox
+{
+	padding: 12px 10px 10px 30px;
+	box-shadow: 5px 5px 10px #000;
+	margin-top: 5px;
+}
+
+#mvcNotify .success
+{
+	color: #060;
+	background: #cfc url(Images/ok.gif) no-repeat 8px 12px;
+}
+
+#mvcNotify .warning
+{
+	color: #c60;
+	background: #ffc url(Images/warn.gif) no-repeat 8px 12px;
+}
+
+#mvcNotify .error
+{
+	color: #c00;
+	background: #fcc url(Images/fail.gif) no-repeat 8px 12px;
+}

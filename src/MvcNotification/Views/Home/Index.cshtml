@@ -3,19 +3,51 @@
 }
 
 <script type="text/javascript">
-	$(document).ready(function () {
-		$('#load-partial').click(function () {
-			$('#placeholder-partial').load('@Url.Action("Partial")');
-			return false;
-		});
+    //Set autoclear of messages. Don't put this into $(document).ready.
+    //mvcNotify.autoClearTimeout = 0; //don't autoclear any types
+    mvcNotify.autoClearTimeout = 5000; //Unit of milliseconds. Requires mvcNotify.typesToAutoClear to be set to something (default behavior).
 
-		$('#load-json').click(function () {
-			$.getJSON('@Url.Action("JsonData")', function (data) {
-				$('#placeholder-json').text('The code is ' + data.Code + ' and the description is "' + data.Description + '", generated at ' + data.TheDate);
-			});
-			return false;
-		});
-	});
+    //USAGE: All parameters below can be passed as string like "success" or string array like ["success", "error", "warning"].
+    //mvcNotify.elementsDontClearOnClick = "a"; //One type
+    //mvcNotify.elementsDontClearOnClick = ["a", ":button", ":submit"]; //Multiple types.
+    //mvcNotify.typesToAutoClear = null; //don't autoclear any types
+    //mvcNotify.typesToAutoClear = "success"; //Autoclear one type.
+    //mvcNotify.typesToAutoClear = "all"; //Autoclear all types.
+    //mvcNotify.typesToAutoClear = ["success", "warning", "error"]; //Autoclear multiple types.
+    //mvcNotify.typesToConsoleLog = "error"; //Log one type to console.
+    mvcNotify.typesToConsoleLog = "all"; //Log all types to console.
+    //mvcNotify.typesToConsoleLog = ["success", "warning", "error"]; //Log multiple types to console.
+
+    $(document).ready(function () {
+
+        $('#load-partial').click(function (event) {
+            $('#placeholder-partial').load('@Url.Action("Partial")');
+            //Needed for IE8
+            event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        });
+
+        $('#load-json').click(function (event) {
+            $.getJSON('@Url.Action("JsonData")', function (data) {
+                $('#placeholder-json').text('The code is ' + data.Code + ' and the description is "' + data.Description + '", generated at ' + data.TheDate);
+            });
+            //Needed for IE8
+            event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        });
+
+        $('#load-anchorClientSide').click(function (event) {
+            $("#placeholder-anchorClientSide").text("Text loaded while clicking anchor link.");
+            mvcNotify.displayMessage("Warning message while clicking anchor link.", "warning"); //pass "success", "warning", or "error"
+            //Needed for IE8
+            event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        });
+
+        $('#load-buttonClientSide').click(function (event) {
+            $("#placeholder-buttonClientSide").text("Text loaded while clicking button.");
+            mvcNotify.displayMessage("Success message while clicking button.", "success"); //pass "success", "warning", or "error"
+            //Needed for IE8
+            event.preventDefault ? event.preventDefault() : event.returnValue = false;
+        });
+    });
 </script>
 
 <h2>Notification demo</h2>
@@ -45,5 +77,17 @@
 	<dd>
 		<a href="#" id="load-json">Load JSON</a>
 		<div id="placeholder-json"></div>
+	</dd>
+
+    <dt>Show warning message from anchor running client side JavaScript</dt>
+	<dd>
+		<a href="#" id="load-anchorClientSide">Load client-side JavaScript</a>
+		<div id="placeholder-anchorClientSide"></div>
+	</dd>
+
+    <dt>Show warning message from button running client side JavaScript</dt>
+	<dd>
+		<input type="button" id="load-buttonClientSide" value="Load client-side JavaScript" />
+		<div id="placeholder-buttonClientSide"></div>
 	</dd>
 </dl>
