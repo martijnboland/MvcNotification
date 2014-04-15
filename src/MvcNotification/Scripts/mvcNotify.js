@@ -1,5 +1,5 @@
 ﻿//CREDIT: http://blogs.taiga.nl/martijn/2011/05/03/keep-your-users-informed-with-asp-net-mvc/
-//Last modified by Cuong Vu (cuong@thevus.com) on 2014-04-11
+//Last modified by Cuong Vu (cuong@thevus.com) on 2014-04-15
 var mvcNotify = mvcNotify || {};
 
 //==================== COPY THESE TO YOUR SCRIPT TO OVERRIDE =====================
@@ -16,10 +16,10 @@ mvcNotify.handle = null;
 //for IE8 support. http://www.paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
 window.log = function () { log.history = log.history || []; log.history.push(arguments); if (this.console) { console.log(Array.prototype.slice.call(arguments)) } };
 
-$.fn.selector = function (boolIncludeID, boolIncludeCss, boolIncludeType) {
-    //2014-04-11 by CV
-    //returns a selector of the object
-    //Usage: var strSelector = $("#whatever").selector();
+$.fn.mySelector = function (boolIncludeID, boolIncludeCss, boolIncludeType) {
+    //2014-04-15 by CV
+    //returns a selector of the object. Changed name from .selector to .mySelector to not override the jQuery one.
+    //Usage: var strSelector = $("#whatever").mySelector();
     //for example, will return input:submit#btnSubmit.className1.className2
     //Tested in IE8, IE10, Firefox and Chrome
     if (null == this || undefined == this) return "";
@@ -53,16 +53,16 @@ mvcNotify.initialize = function () {
         $(document).click(function (event) {
             //If you use client side JavaScript to displayMessage on click of anchor, input:button, or input:submit, the message will disappear immediately after click. Prevent that here.
             var jqTarget = $(event.target || event.srcElement);
-            var strSelector = jqTarget.selector(false, false, true);
+            var strSelector = jqTarget.mySelector(false, false, true);
 
             if (mvcNotify.elementsDontClearOnClick) {
                 if ($.type(mvcNotify.elementsDontClearOnClick) === "string") {
                     if (jqTarget.is(mvcNotify.elementsDontClearOnClick)) return;
-                    if (strSelector.indexOf(mvcNotify.elementsDontClearOnClick) >= 0) return;
+                    if (mvcNotify.elementsDontClearOnClick.indexOf(":") >= 0 && strSelector.indexOf(mvcNotify.elementsDontClearOnClick) >= 0) return;
                 } else if ($.isArray(mvcNotify.elementsDontClearOnClick) && mvcNotify.elementsDontClearOnClick.length > 0) {
                     for (var i = 0; i < mvcNotify.elementsDontClearOnClick.length; i++) {
                         if (jqTarget.is(mvcNotify.elementsDontClearOnClick[i])) return;
-                        if (strSelector.indexOf(mvcNotify.elementsDontClearOnClick[i]) >= 0) return;
+                        if (mvcNotify.elementsDontClearOnClick[i].indexOf(":") >= 0 && strSelector.indexOf(mvcNotify.elementsDontClearOnClick[i]) >= 0) return;
                     }
                 }
             }
