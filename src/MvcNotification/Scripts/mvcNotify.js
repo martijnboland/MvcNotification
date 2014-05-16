@@ -1,5 +1,6 @@
 ﻿//CREDIT: http://blogs.taiga.nl/martijn/2011/05/03/keep-your-users-informed-with-asp-net-mvc/
-//Last modified by Cuong Vu (cuong@thevus.com) on 2014-04-15
+//Last modified by Cuong Vu (cuong@thevus.com) on 2014-05-15
+//Tested in IE8, IE10, and Chrome with jQuery 1.7.2
 var mvcNotify = mvcNotify || {};
 
 //==================== COPY THESE TO YOUR SCRIPT TO OVERRIDE =====================
@@ -13,8 +14,29 @@ mvcNotify.typesToConsoleLog = null; //Can be string like "all" or "error" or str
 mvcNotify.selectorHandle = "#mvcNotify";
 mvcNotify.handle = null;
 
-//for IE8 support. http://www.paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
-window.log = function () { log.history = log.history || []; log.history.push(arguments); if (this.console) { console.log(Array.prototype.slice.call(arguments)) } };
+// Avoid `console` errors in browsers that lack a console.
+(function () {
+    //https://github.com/h5bp/html5-boilerplate/blob/master/js/plugins.js
+    var method;
+    var noop = function () { };
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = (window.console = window.console || {});
+
+    while (length--) {
+        method = methods[length];
+
+        // Only stub undefined methods.
+        if (!console[method]) {
+            console[method] = noop;
+        }
+    }
+} ());
 
 $.fn.mySelector = function (boolIncludeID, boolIncludeCss, boolIncludeType) {
     //2014-04-15 by CV
